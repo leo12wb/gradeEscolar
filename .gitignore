@@ -1,0 +1,72 @@
+dist
+node_modules
+.env
+src/images
+bun.lockb
+bun.lockb
+pnpm-lock.yaml
+package-lock.json
+.vscode
+#tables.sql
+
+# Byte-compiled files
+__pycache__/
+*.py[cod]
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+eggs/
+.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# virtualenv
+venv/
+ENV/
+env/
+env.bak/
+venv.bak/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
+
+# Pytest
+.cache
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# pyre type checker
+.pyre/
+
+# C extensions
+*.so
+
+# VS Code settings
+.vscode/
+
+# IDE specific files
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# MacOS
+.DS_Store
+
+# Logs
+*.log
+
+# Python language server
+python-language-server/
+
+# Coverage reports
+htmlcov/
+*.cover
+.coverage
+.coverage.*

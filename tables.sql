@@ -1,0 +1,99 @@
+-- Criação da tabela dayOfTheWeek
+CREATE TABLE dayOfTheWeek (
+    id SERIAL PRIMARY KEY,
+    week VARCHAR(30) NOT NULL,
+    abbreviation VARCHAR(10) NOT NULL,
+    ordem INT NOT NULL,
+    status BOOLEAN NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+-- Criação da tabela classSchedule
+CREATE TABLE classSchedule (
+    id SERIAL PRIMARY KEY,
+    start_date TIMESTAMP NULL DEFAULT NULL,
+    end_date TIMESTAMP NULL DEFAULT NULL,
+    ordem INT NOT NULL,
+    status BOOLEAN NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+-- Criação da tabela schoolGrid
+CREATE TABLE schoolGrid (
+    id SERIAL PRIMARY KEY,
+    schoolId INT NOT NULL,
+    segmentId INT NOT NULL,
+    serieId INT NOT NULL,
+    classId INT NOT NULL,
+    status BOOLEAN NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+-- Criação da tabela schoolGridTeacher
+CREATE TABLE schoolGridTeacher (
+    id SERIAL PRIMARY KEY,
+    useId INT NOT NULL,
+    status BOOLEAN NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+-- Criação da tabela schoolGrid
+CREATE TABLE auxGridDiscipline (
+    id SERIAL PRIMARY KEY,
+    schoolGridId INT NOT NULL,
+    schoolGridDisciplineId INT NOT NULL,
+    status BOOLEAN NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE auxWeekSchedule (
+    id SERIAL PRIMARY KEY,
+    dayOfTheWeekId INT NOT NULL,
+    classScheduleId INT NOT NULL,
+    status BOOLEAN NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+-- Criação da tabela schoolGridDiscipline
+CREATE TABLE schoolGridDiscipline (
+    id SERIAL PRIMARY KEY,
+    schoolGridTeacherId INT NOT NULL REFERENCES schoolGridTeacher(id),
+    disciplineId INT NOT NULL,
+    status BOOLEAN NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+-- Criação da tabela schoolGridWeekHour
+CREATE TABLE schoolGridWeekHour (
+    id SERIAL PRIMARY KEY,
+    schoolGridId INT NOT NULL REFERENCES schoolGrid(id),
+    auxGridDisciplineId INT NOT NULL REFERENCES auxGridDiscipline(id),
+    status BOOLEAN NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE auxGridWeekHour (
+    id SERIAL PRIMARY KEY,
+    schoolGridWeekHourId INT NOT NULL REFERENCES schoolGridWeekHour(id),
+    auxWeekScheduleId INT NOT NULL REFERENCES auxWeekSchedule(id),
+    status BOOLEAN NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE authToken (
+    id SERIAL PRIMARY KEY,
+    appId INT NOT NULL,
+    token VARCHAR(200) NOT NULL,
+    status BOOLEAN NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
